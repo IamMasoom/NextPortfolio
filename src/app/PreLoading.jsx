@@ -13,30 +13,31 @@ const PreLoading = () => {
 
         const tl = gsap.timeline()
 
-        tl.from('.strip', {
+        tl.to('.strip', {
             display: 'block',
-            height: 0,
-            duration: 0.8,
-            stagger: {
-                amount: -0.4,
-            }
-        })
-
-        tl.to('.strip', {
+            height: '100%',
             y: '100%',
-            duration: 0.8,
+            duration: 1,
             stagger: {
                 amount: -0.4,
             }
         })
 
-        tl.to(preloadingStrips.current, {
-            display: 'none',
-        })
+        // tl.to('.strip', {
+        //     y: '100%',
+        //     duration: 0.8,
+        //     stagger: {
+        //         amount: -0.4,
+        //     }
+        // })
 
-        tl.to('.strip', {
-            y: '0%',
-        })
+        // tl.to(preloadingStrips.current, {
+        //     display: 'none',
+        // })
+
+        // tl.to('.strip', {
+        //     y: '0%',
+        // })
     })
 
     return (
