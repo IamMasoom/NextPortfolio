@@ -1,10 +1,8 @@
-import React from 'react'
+import { div } from "framer-motion/client"
 
 const HeroText = () => {
   return (
-    <div className='flex flex-col items-center relative'>
-      Hello I'm Masoom
-    </div>
+    <div></div>
   )
 }
 
