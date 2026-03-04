@@ -31,11 +31,9 @@ const HeroSection = () => {
       const viewportHeight = window.innerHeight
 
       // Phase 1: Distance crowd needs to travel until its bottom aligns with heroText bottom
-      // Crowd bottom starts at viewportHeight, needs to reach heroTextBottom
       const phase1Distance = viewportHeight - heroTextBottom
 
       // Phase 2: Distance until crowd bottom aligns with nav bottom
-      // From heroTextBottom to navHeight
       const phase2Distance = heroTextBottom - navHeight
 
       // Phase 3: Everything scrolls out
@@ -46,14 +44,14 @@ const HeroSection = () => {
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=300%",
+          end: "+=100%",
           scrub: 0.5,
           pin: true,
           anticipatePin: 1,
         }
       })
 
-      // Phase 1: Only crowd canvas moves up until its bottom aligns with heroText bottom
+      // Phase 1: Crowd canvas moves up until its bottom aligns with heroText bottom
       tl.to(crowd, {
         y: -phase1Distance,
         ease: "none",
@@ -73,7 +71,7 @@ const HeroSection = () => {
         duration: 0.3
       }, 0.3)
 
-      // Phase 3: All three move together out of view
+      // Phase 3: All elements scroll out together
       tl.to(crowd, {
         y: -(phase1Distance + phase2Distance + phase3Distance),
         ease: "none",
@@ -107,8 +105,8 @@ const HeroSection = () => {
       <div ref={heroTextRef} className="relative z-10">
         <HeroText />
       </div>
-      {/* Crowd canvas fills remaining space at bottom - highest z-index */}
-      <div ref={crowdRef} className="absolute inset-0 z-30 pointer-events-none">
+      {/* Crowd canvas fills the viewport - highest z-index */}
+      <div ref={crowdRef} className="absolute top-0 left-0 right-0 h-screen z-30 pointer-events-none">
         <CrowdCanvas src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/open-peeps-sheet.png' rows={15} cols={7} />
       </div>
     </div>

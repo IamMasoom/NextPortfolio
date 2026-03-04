@@ -1,6 +1,7 @@
 
 import HeroSection from "./components/hero/HeroSection"
 import About from "./components/about/About"
+import Project from "./components/projects/Project"
 
 const LandingPage = () => {
 
@@ -8,6 +9,7 @@ const LandingPage = () => {
     <div>
       <HeroSection />
       <About />
+      <Project />
     </div>
   )
 }
