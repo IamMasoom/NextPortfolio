@@ -3,11 +3,8 @@
 const About = () => {
 
   return (
-    <div className='h-screen border border-black'>
-      <div>
-        <h1 className="text-4xl font-bold mb-4">About Me</h1>
-        <p className="text-lg">I am a passionate developer with expertise in building modern web applications using React, Next.js, and TypeScript.</p>
-      </div>
+    <div className='h-screen flex items-center justify-center'>
+      <div className='bg-white h-[96vh] w-[96vw] border border-black m-auto'></div>
     </div>
   );
 }
