@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
+
 const Skiper26 = () => {
   const [variant, setVariant] = useState<AnimationVariant>("rectangle");
   const [start, setStart] = useState<AnimationStart>("bottom-up");
@@ -612,7 +613,6 @@ export const ThemeToggleButton = ({
     blur,
     gifUrl,
   });
-
   return (
     <button
       type="button"

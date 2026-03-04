@@ -10,7 +10,7 @@ const funnel = Funnel_Display({
 const HeroNav = () => {
   return (
     <div className="py-5">
-      <div className="grid grid-cols-10 gap-4 ">
+      <div className="grid grid-cols-10 gap-4">
         <div className={`col-span-2 text-center text-[#463f3a] font-extrabold text-4xl ${funnel.className}`}>johan</div>
 
 
@@ -19,10 +19,10 @@ const HeroNav = () => {
         </div>
         <div className="col-span-7 col-start-4">
             <ul className="flex gap-12 justify-center text-[1rem] items-center h-full">
-              <li className="rounded-lg px-4 py-1">Home</li>
-              <li className="rounded-lg px-4 py-1">About</li>
-              <li className="rounded-lg px-4 py-1">Projects</li>
-              <li className="rounded-lg px-4 py-1">Contact</li>
+              <li className="text-[#8a817c] rounded-lg px-4 py-1 cursor-pointer hover:bg-white">Home</li>
+              <li className="text-[#8a817c] rounded-lg px-4 py-1 cursor-pointer hover:bg-white">About</li>
+              <li className="text-[#8a817c] rounded-lg px-4 py-1 cursor-pointer hover:bg-white">Projects</li>
+              <li className="text-[#8a817c] rounded-lg px-4 py-1 cursor-pointer hover:bg-white">Contact</li>
             </ul>
         </div>
       </div>

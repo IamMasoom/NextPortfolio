@@ -4,8 +4,8 @@ import React from 'react'
 const About = () => {
 
   return (
-    <div className='h-screen w-full flex items-center justify-center'>
-      <h1 className='text-6xl'>About Me</h1>
+    <div className='h-screen flex items-center justify-center'>
+      <div className='bg-white h-[96vh] w-[96vw] border border-black m-auto'></div>
     </div>
   );
 }
