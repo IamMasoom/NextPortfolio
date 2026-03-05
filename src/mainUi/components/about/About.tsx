@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef, type ReactNode } from "react"
+import GithubCalender from "./GithubCalender"
 
 const CARD_COUNT = 3
 
@@ -16,12 +17,14 @@ function AboutCard({
   color: string
   children: ReactNode
 }) {
-  const start = i / CARD_COUNT
-  const end = (i + 1) / CARD_COUNT
+  // Cards animate within first 75% of scroll, last 25% keeps card 3 pinned
+  const cardEnd = CARD_COUNT / (CARD_COUNT + 1) // 0.75
+  const start = (i / CARD_COUNT) * cardEnd
+  const end = ((i + 1) / CARD_COUNT) * cardEnd
   const targetScale = 1 - (CARD_COUNT - 1 - i) * 0.04
 
   const y = useTransform(progress, [start, end], [600, 0])
-  const scale = useTransform(progress, [start, 1], [1, targetScale])
+  const scale = useTransform(progress, [start, cardEnd], [1, targetScale])
 
   return (
     <div
@@ -30,7 +33,7 @@ function AboutCard({
     >
       <motion.div
         style={{ y: i === 0 ? 0 : y, scale }}
-        className={`relative w-full max-w-4xl h-125 rounded-3xl ${color} shadow-2xl p-12 md:p-16 origin-top`}
+        className={`relative w-[80%] h-[75%] rounded-2xl ${color} shdw p-12 md:p-16 origin-top`}
       >
         {children}
       </motion.div>
@@ -47,11 +50,11 @@ export default function About() {
   })
 
   return (
-    <section className="bg-black text-white">
+    <section className="">
       <div
         ref={container}
         className="relative"
-        style={{ height: `${CARD_COUNT * 100}vh` }}
+        style={{ height: `${(CARD_COUNT + 1) * 100}vh` }}
       >
 
         {/* ——— Card 1 ——— */}
@@ -86,6 +89,12 @@ export default function About() {
           </p>
         </AboutCard>
 
+
+      </div>
+
+      {/* ——— GitHub Calendar scrolls over the last pinned card ——— */}
+      <div className="">
+        <GithubCalender />
       </div>
     </section>
   )

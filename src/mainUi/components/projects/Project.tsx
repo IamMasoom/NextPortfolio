@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Project = () => {
+const project = () => {
   return (
-    <div className='border border-black h-screen'>
-      <h1>this is project section</h1>
+    <div className='h-screen'>
+      
     </div>
   )
 }
 
-export default Project
+export default project

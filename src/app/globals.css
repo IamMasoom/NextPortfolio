@@ -14,6 +14,9 @@ html.dark, html.dark body {
   background: #1a1a1a;
   color: #f5f4f3;
 }
+.shdw {
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
 
 /* color 
 463f3a dark
