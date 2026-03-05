@@ -16,103 +16,72 @@ const HeroSection = () => {
   const crowdRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const container = containerRef.current
-    const nav = navRef.current
-    const heroText = heroTextRef.current
-    const crowd = crowdRef.current
-
-    if (!container || !nav || !heroText || !crowd) return
-
     const ctx = gsap.context(() => {
-      // Get element positions and heights
-      const navHeight = nav.offsetHeight
-      const heroTextRect = heroText.getBoundingClientRect()
-      const heroTextBottom = heroTextRect.bottom
-      const viewportHeight = window.innerHeight
 
-      // Phase 1: Distance crowd needs to travel until its bottom aligns with heroText bottom
-      const phase1Distance = viewportHeight - heroTextBottom
-
-      // Phase 2: Distance until crowd bottom aligns with nav bottom
-      const phase2Distance = heroTextBottom - navHeight
-
-      // Phase 3: Everything scrolls out
-      const phase3Distance = viewportHeight
-
-      // Create a timeline with ScrollTrigger
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: container,
+          trigger: containerRef.current,
           start: "top top",
-          end: "+=100%",
-          scrub: 0.5,
+          end: "+=200%",
+          scrub: true,
           pin: true,
-          anticipatePin: 1,
+          pinSpacing: false,
         }
       })
 
-      // Phase 1: Crowd canvas moves up until its bottom aligns with heroText bottom
-      tl.to(crowd, {
-        y: -phase1Distance,
-        ease: "none",
-        duration: 0.3
-      }, 0)
-
-      // Phase 2: Crowd and HeroText move together until crowd bottom aligns with nav bottom
-      tl.to(crowd, {
-        y: -(phase1Distance + phase2Distance),
-        ease: "none",
-        duration: 0.3
-      }, 0.3)
-      
-      tl.to(heroText, {
-        y: -phase2Distance,
-        ease: "none",
-        duration: 0.3
-      }, 0.3)
-
-      // Phase 3: All elements scroll out together
-      tl.to(crowd, {
-        y: -(phase1Distance + phase2Distance + phase3Distance),
-        ease: "none",
-        duration: 0.4
-      }, 0.6)
-      
-      tl.to(heroText, {
-        y: -(phase2Distance + phase3Distance),
-        ease: "none",
-        duration: 0.4
-      }, 0.6)
-
-      tl.to(nav, {
-        y: -phase3Distance,
-        ease: "none",
-        duration: 0.4
-      }, 0.6)
-
-      tl.to(containerRef.current,{
-        y: -phase3Distance,
+      // Phase 1 → crowd moves up
+      tl.to(crowdRef.current, {
+        y: "-40vh",
+        ease: "none"
       })
 
-    }, container)
+      // Phase 2 → crowd + text move
+      tl.to(crowdRef.current, {
+        y: "-80vh",
+        ease: "none",
+      })
+
+      tl.to(heroTextRef.current, {
+        y: "-40vh",
+        ease: "none"
+      }, "<")
+
+      // Phase 3 → everything scrolls out
+      tl.to(
+        [crowdRef.current, heroTextRef.current, navRef.current],
+        {
+          y: "-120vh",
+          ease: "none"
+        }
+      )
+
+    }, containerRef)
 
     return () => ctx.revert()
   }, [])
 
   return (
-    <div ref={containerRef} className="h-screen relative overflow-hidden">
-      {/* Nav at top */}
+    <div ref={containerRef} className="relative h-[170vh] overflow-hidden">
+
       <div ref={navRef} className="relative z-20">
         <HeroNav />
       </div>
-      {/* HeroText below nav */}
+
       <div ref={heroTextRef} className="relative z-10">
         <HeroText />
       </div>
-      {/* Crowd canvas fills the viewport - highest z-index */}
-      <div ref={crowdRef} className="absolute top-0 left-0 right-0 h-screen z-30 pointer-events-none">
-        <CrowdCanvas src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/open-peeps-sheet.png' rows={15} cols={7} />
+
+      <div
+        ref={crowdRef}
+        className="absolute top-0 left-0 right-0 z-30 h-screen pointer-events-none"
+      >
+        <CrowdCanvas
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/open-peeps-sheet.png"
+          rows={15}
+          cols={7}
+        />
       </div>
+
     </div>
   )
 }
