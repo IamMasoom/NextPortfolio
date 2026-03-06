@@ -2,6 +2,7 @@ import { GitHubCalendar } from "react-github-calendar"
 import { ActivityCalendar, Props as CalendarProps, } from 'react-activity-calendar'
 import 'react-activity-calendar/tooltips.css';
 
+
 const GithubCalender = () => {
 
     const labels = {
@@ -37,9 +38,13 @@ const GithubCalender = () => {
 
     return (
         <div>
-            <div className="bg-black p-10 h-full">
+            <div className="p-10 h-full flex items-center justify-center shdw rounded-lg">
                 <GitHubCalendar username="IamMasoom"
-                labels={labels} showWeekdayLabels
+                    blockSize={18}
+                    blockRadius={4}
+                    blockMargin={3.5}
+                    fontSize={14}
+                    labels={labels} showWeekdayLabels
                     tooltips={{
                         activity: {
                             text: activity => `${activity.count} contributions on ${activity.date}`,
