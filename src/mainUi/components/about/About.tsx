@@ -4,18 +4,20 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef, type ReactNode } from "react"
 import GithubCalender from "./GithubCalender"
 
-const CARD_COUNT = 3
+const CARD_COUNT = 4
 
 function AboutCard({
   i,
   progress,
   color,
   children,
+  cardClassName,
 }: {
   i: number
   progress: any
   color: string
   children: ReactNode
+  cardClassName?: string
 }) {
   // Cards animate within first 75% of scroll, last 25% keeps card 3 pinned
   const cardEnd = CARD_COUNT / (CARD_COUNT + 1) // 0.75
@@ -26,14 +28,25 @@ function AboutCard({
   const y = useTransform(progress, [start, end], [600, 0])
   const scale = useTransform(progress, [start, cardEnd], [1, targetScale])
 
+  // Fade out the card when the card 2 positions ahead arrives
+  const fadeStart = ((i + 2) / CARD_COUNT) * cardEnd
+  const fadeEnd = ((i + 3) / CARD_COUNT) * cardEnd
+  const opacity = useTransform(
+    progress,
+    [fadeStart, fadeEnd],
+    [1, 0]
+  )
+  // Last two cards stay visible (no card 2 ahead to trigger fade)
+  const shouldFade = i < CARD_COUNT - 2
+
   return (
     <div
       className="sticky top-0 flex h-screen items-center justify-center"
       style={{ zIndex: i }}
     >
       <motion.div
-        style={{ y: i === 0 ? 0 : y, scale }}
-        className={`relative w-[80%] h-[75%] rounded-2xl ${color} shdw p-12 md:p-16 origin-top`}
+        style={{ y: i === 0 ? 0 : y, scale, opacity: shouldFade ? opacity : 1 }}
+        className={`relative rounded-2xl ${color} shdw origin-top ${cardClassName ?? 'w-[95%] h-[90%] p-12 md:p-16'}`}
       >
         {children}
       </motion.div>
@@ -89,12 +102,16 @@ export default function About() {
           </p>
         </AboutCard>
 
+        {/* ——— Card 4 ——— */}
+        <AboutCard i={3} progress={scrollYProgress} color="bg-[#f5f0e8]">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-900">
+            Get In Touch
+          </h2>
+          <div>
+          <GithubCalender />
+          </div>
+        </AboutCard>
 
-      </div>
-
-      {/* ——— GitHub Calendar scrolls over the last pinned card ——— */}
-      <div className="">
-        <GithubCalender />
       </div>
     </section>
   )
